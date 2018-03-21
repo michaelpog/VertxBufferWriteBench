@@ -2,7 +2,7 @@
 Tests writes to Vertx Buffer with undersized and oversized buffer size
 
 Results:
-
+```
 Benchmark                             (initialCapacity)   Mode   Samples         Mean   Mean error    Units
 o.s.MyBenchmark.testOutOfLimitLimit                1024   avgt        15    11166.683      707.722    ns/op
 o.s.MyBenchmark.testOutOfLimitLimit                2048   avgt        15    23237.960      571.892    ns/op
@@ -14,7 +14,7 @@ o.s.MyBenchmark.testWithInLimit                    2048   avgt        15    1530
 o.s.MyBenchmark.testWithInLimit                    4096   avgt        15    30864.934      466.334    ns/op
 o.s.MyBenchmark.testWithInLimit                    8192   avgt        15    59420.100     2989.484    ns/op
 o.s.MyBenchmark.testWithInLimit                   16384   avgt        15   115228.745     6053.443    ns/op
-
+```
 
 To run:
 mvn clean install
