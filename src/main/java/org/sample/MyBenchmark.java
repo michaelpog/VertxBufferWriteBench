@@ -54,29 +54,33 @@ public class MyBenchmark {
     @Param({"1024", "2048", "4096", "8192", "16384"})
     int initialCapacity;
 
-    private Buffer buffer;
-    private byte [] bytesInLimit;
-    private byte [] bytesOutOfLimit;
+    private Buffer underSizedBuffer;
+    private Buffer overSizedBuffer;
+    private byte [] bytes;
     private Random random = new Random();
 
-    @Setup(Level.Iteration)
+    @Setup(Level.Invocation)
     public void setup() {
-        buffer = Buffer.buffer(initialCapacity);
-        bytesInLimit = new byte[initialCapacity-1];
-        bytesOutOfLimit = new byte[initialCapacity+initialCapacity/2];
-        random.nextBytes(bytesOutOfLimit);
-        random.nextBytes(bytesInLimit);
+        underSizedBuffer = Buffer.buffer();
+        overSizedBuffer = Buffer.buffer(initialCapacity+initialCapacity/2);
+        bytes = new byte[initialCapacity];
+        random.nextBytes(bytes);
     }
-
 
     @GenerateMicroBenchmark
     public void testWithInLimit() {
-        buffer.appendBytes(bytesInLimit);
+        for( byte input : bytes) {
+            overSizedBuffer.appendByte(input);
+        }
+
     }
 
     @GenerateMicroBenchmark
     public void testOutOfLimitLimit() {
-        buffer.appendBytes(bytesOutOfLimit);
+        for( byte input : bytes) {
+            underSizedBuffer.appendByte(input);
+        }
+
     }
 
 }
